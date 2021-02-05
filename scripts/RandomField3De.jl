@@ -24,7 +24,7 @@ end
     return
 end
 ##################################################
-@views function RandomField3D()
+@views function RandomField3De()
     do_viz  = false
     do_save = false
     Random.seed!(1234)                # Resetting the random seed
@@ -77,12 +77,12 @@ end
     @printf("Total harmonic iters=%d, time=%1.3e sec (@ T_eff = %1.2f GB/s) \n", nh, wtime, round(T_eff, sigdigits=2))
     # Visualisation
     if do_viz
-        # display(heatmap(X, Z, Array(Yf)[:,y_sl,:]', aspect_ratio=1, xlims=(X[1],X[end]), ylims=(Z[1],Z[end]), c=:inferno, title="3D RandomField (y-slice)"))
-        heatmap(X, Z, Array(Yf)[:,y_sl,:]', aspect_ratio=1, xlims=(X[1],X[end]), ylims=(Z[1],Z[end]), c=:inferno, title="RandomField"); frame(anim)
+        # display(heatmap(X, Z, Array(Yf)[:,y_sl,:]', aspect_ratio=1, xlims=(X[1],X[end]), ylims=(Z[1],Z[end]), c=:hot, title="3D RandomField (y-slice)"))
+        heatmap(X, Z, Array(Yf)[:,y_sl,:]', aspect_ratio=1, xlims=(X[1],X[end]), ylims=(Z[1],Z[end]), c=:hot, title="3D RandomField (y-slice)"); frame(anim)
         gif(anim, "RandomField3D_exp.gif", fps = 15)
     end
     if do_save  file = matopen("Rnd3De.mat", "w"); write(file, "Rnd3D", Array(Yf)); close(file)  end
     return
 end
 
-RandomField3D()
+RandomField3De()

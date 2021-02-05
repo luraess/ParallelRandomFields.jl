@@ -24,7 +24,7 @@ end
     return
 end
 ##################################################
-@views function RandomField3D()
+@views function RandomField3De()
     do_viz  = false
     do_save = false
     Random.seed!(1234)                # Resetting the random seed
@@ -89,8 +89,8 @@ end
     if do_viz
         Yf_inn .= Yf[2:end-1,2:end-1,2:end-1]; gather!(Yf_inn, Yf_v)
         if (me==0)
-            # display(heatmap(X, Z, Array(Yf)[:,y_sl,:]', aspect_ratio=1, xlims=(X[1],X[end]), ylims=(Z[1],Z[end]), c=:inferno, title="3D RandomField (y-slice)"))
-            heatmap(Xi_g, Zi_g, Yf_v[:,y_sl,:]', aspect_ratio=1, xlims=(Xi_g[1],Xi_g[end]), ylims=(Zi_g[1],Zi_g[end]), c=:inferno, title="3D RandomField (y-slice)"); frame(anim)
+            # display(heatmap(X, Z, Array(Yf)[:,y_sl,:]', aspect_ratio=1, xlims=(X[1],X[end]), ylims=(Z[1],Z[end]), c=:hot, title="3D RandomField (y-slice)"))
+            heatmap(Xi_g, Zi_g, Yf_v[:,y_sl,:]', aspect_ratio=1, xlims=(Xi_g[1],Xi_g[end]), ylims=(Zi_g[1],Zi_g[end]), c=:hot, title="3D RandomField (y-slice)"); frame(anim)
             gif(anim, "RandomFIeld3D_exp.gif", fps = 15)
         end
     end
@@ -99,4 +99,4 @@ end
     return
 end
 
-RandomField3D()
+RandomField3De()
