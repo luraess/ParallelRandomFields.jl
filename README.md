@@ -8,7 +8,7 @@ ParallelRandomFields enables to sample spatial realisations of a 3-D random fiel
 The implementation builds upon an approach proposed in\[[1][Raess2019]\] and employs a parallel implementation of the method based on spectral representation described in \[[2][Sabelfeld1991]\]. Advantages of this method are the possibility of random field simulation on an arbitrary grid and the simplicity of parallel implementation of the algorithm. The method is flexible and is also applicable for arbitrary anisotropic spectrum.
 
 
-ParallelRandomFields.jl is a Julia version with multi-XPU support addition of the original CUDA C implementation published in Computers & Geoscinces:
+ParallelRandomFields.jl is the Julia version with additional multi-XPU support of the original CUDA C implementation published in Computers & Geosciences:
 ```tex
 @article{rass2019grf,
     title={Efficient parallel random field generator for large 3-D geophysical problems},
