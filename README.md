@@ -3,7 +3,7 @@ Efficient parallel random field generator for large 3-D problems
 
 ![3D random fields with Gaussian and exponential covariance](docs/Fig_exp_gauss_3D.png)
 
-ParallelRandomFields enables to sample spatial realisations of a 3-D random fields with given power spectrum. The method allows for fast and accurate generation of Gaussian random fields with anisotropic exponential (left figure pane) and isotropic Gaussian (right figure pane) covariance functions. The method is fast, accurate and fully local. We use ParallelStencil to provide an architecture-agnostic high-level CPU and GPU implementation, and ImplicitGlobalGrid for a multi-XPU support (distributed memory parallelisation).
+ParallelRandomFields enables to sample spatial realisations of a 3-D random fields with given power spectrum. The method allows for fast and accurate generation of Gaussian random fields with anisotropic exponential (left figure pane) and isotropic Gaussian (right figure pane) covariance functions. The method is fast, accurate and fully local. We use [ParallelStencil] to provide an architecture-agnostic high-level CPU and GPU implementation, and [ImplicitGlobalGrid] for multi-XPU support (distributed memory parallelisation).
 
 The implementation builds upon an approach proposed in \[[1][Raess2019]\] and employs a parallel implementation of the method based on spectral representation described in \[[2][Sabelfeld1991]\]. Advantages of this method are the possibility of random field simulation on an arbitrary grid and the simplicity of parallel implementation of the algorithm. The method is flexible and is also applicable for arbitrary anisotropic spectrum.
 
