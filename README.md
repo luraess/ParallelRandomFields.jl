@@ -22,12 +22,45 @@ ParallelRandomFields.jl is the Julia version with additional multi-XPU support o
 ```
 
 ## Content
+* [Development status](#development-status)
 * [Module documentation callable from the Julia REPL / IJulia](#module-documentation-callable-from-the-julia-repl--ijulia)
 * [Usage](#usage)
 * [Dependencies](#dependencies)
 * [Installation](#installation)
 * [Questions, comments and discussions](#questions-comments-and-discussions)
 * [References](#references)
+
+## Development status
+**Disclaimer: This section lists the current status and the ideas on how to design the module. All further sections of the README are work in progress and not finalised yet, mainly reflecting potential infos to share.**
+
+### Repository content:
+- `scripts` folder which contains the 2D, 3D and multi-XPU 3D routines as "monolithic" and standalone working codes. The `runme.jl` also within this folder should serve as script to call the _on-work_ module.
+- `src` folder contains the source files for the module: the module itself `ParallelRandomFields.jl`, a random field generator `generate_RndField2D_expon.jl` that calls the specific random field routine e.g. `RndField2D_expon.jl` for creating a 2D Gaussian random field with exponential covariance. 
+
+### Design idea - not yet fully implemented nor working
+The idea is to expose two functions or routines via the module:
+
+1. a random field generator function (here `RndField2D_expon.jl`) that actually generates a specific random field (2D or 3D, exponential or Gaussian covariance). This function could be called within the main of a ParallelStencil-enabled code as `# Initial condition`. 
+
+The function `RndField2D_expon!()` should take an initialised `Yf::Data.Array` as input and return it as a random field for further calculations. 
+```julia
+RndField2D_expon!(Yf::Data.Array, sf::Data.Number, cl, nh::Int, nx::Int, ny::Int, dx::Data.Number, dy::Data.Number; do_reset=true)
+```   
+
+2. The module should provide a "higher-level" function, defined in `generate_RndField2D_expon.jl`, that permits a "stand-alone" initialisation of a random field, to be plotted, exported, or saved to disk. The function `generate_RndField2D_expon()` should thus initialise `ParallelStencil` and `ImplicitGlobalGrid` depending on the parameters, initialise the `Yf::Data.Array`, prepare for plotting, call the random field routine `RndField2D_expon!()` and return the random field either as array within interactive REPL, plot it, save it to disk or else.
+```julia
+generate_RndField2D_expon(lx::Data.Number, ly::Data.Number, sf::Data.Number, cl, nh::Int, nx::Int, ny::Int, dx::Data.Number, dy::Data.Number; do_viz=false, do_save=false, do_reset=true)
+```
+
+My goal was then to create a `runme.jl` that would "mimic" what a user should provide to `generate_RndField2D_expon()` function in order to initialise a random field.
+
+I think it makes sense to expose two functionalities, one being a "stand-alone" generator where only input are physics, and one being the core random field computing routine that could be called as simple function within a ParallelStencil-enabled code when the users knows what he does.
+
+I still have problems to see how to package all this in Julia:
+- especially if a `shared.jl` module is needed to handle the boolean such as `USE_GPU`, `GPU_ID`, and the optionnal arguments (`do_viz`, `do_save`, `do_reset`, etc...).
+- how to best handle that one can deal with 2D, 3D, 3D multi-XPU and for each case, there are both the exponential and Gaussian field available
+- `ParallelStencil` being not yet registered, this causes minor issue when having it as dependency in another package since the `resolve` will fail...
+
 
 ## Module documentation callable from the Julia REPL / IJulia
 The module documentation can be called from the [Julia REPL] or in [IJulia]:

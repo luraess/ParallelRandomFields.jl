@@ -19,7 +19,7 @@ end
     return
 end
 ##################################################
-@views function RndField2D_expon!(Yf,::Data.Array, lx::Data.Number, ly::Data.Number, sf::Data.Number, cl, nh::Int, nx::Int, ny::Int, dx::Data.Number, dy::Data.Number; do_reset=true)
+@views function RndField2D_expon!(Yf::Data.Array, sf::Data.Number, cl, nh::Int, nx::Int, ny::Int, dx::Data.Number, dy::Data.Number; do_reset=true)
     # Resetting the random seed if needed
     if do_reset  Random.seed!(1234)  end
     # Derived numerics

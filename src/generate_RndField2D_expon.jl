@@ -20,7 +20,7 @@ using MAT, Plots
         X, Y = -lx/2:dx:lx/2, -ly/2:dy:ly/2
     end
 
-    RndField2D_expon!(Yf, lx, ly, sf, cl, nh, nx, ny, dx, dy; do_reset=true)
+    RndField2D_expon!(Yf, sf, cl, nh, nx, ny, dx, dy; do_reset=true)
 
     # Visualisation
     if do_viz
