@@ -35,12 +35,15 @@ ParallelRandomFields.jl is the Julia version with additional multi-XPU support o
 
 The trial for the module is currently done only with the 2D random field generator using the exponential covariance function. The goal is to include all the generation scripts in the module.
 
+
 ### Repository content
+
 The following scripts are currently uploaded:
 - `scripts` folder which contains the 2D, 3D and multi-XPU 3D routines as "monolithic" and standalone working codes. The `runme.jl` also within this folder should serve as script to call the _on-work_ module.
 - `src` folder contains the source files for the module: the module itself `ParallelRandomFields.jl`, a random field generator `generate_RndField2D_expon.jl` that calls the specific random field routine e.g. `RndField2D_expon.jl` for creating a 2D Gaussian random field with exponential covariance. 
 
 ### Design idea - not yet fully implemented nor working
+
 The idea is to expose two functions or routines via the module:
 
 1. a random field generator function (here `RndField2D_expon.jl`) that actually generates a specific random field (2D or 3D, exponential or Gaussian covariance). This function could be called within the main of a ParallelStencil-enabled code as `# Initial condition`. 
