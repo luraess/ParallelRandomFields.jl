@@ -33,6 +33,8 @@ ParallelRandomFields.jl is the Julia version with additional multi-XPU support o
 ## Development status
 **Disclaimer: This section lists the current status and the ideas on how to design the module. All further sections of the README are work in progress and not finalised yet, mainly reflecting potential infos to share.**
 
+The trial for the module is currently done only with the 2D random field generator using the exponential covariance function. The goal is to include all the generation scripts in the module.
+
 ### Repository content
 The following scripts are currently uploaded:
 - `scripts` folder which contains the 2D, 3D and multi-XPU 3D routines as "monolithic" and standalone working codes. The `runme.jl` also within this folder should serve as script to call the _on-work_ module.
