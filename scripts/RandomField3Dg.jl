@@ -82,7 +82,7 @@ end
     if do_viz
         # display(heatmap(X, Z, Array(Yf)[:,y_sl,:]', aspect_ratio=1, xlims=(X[1],X[end]), ylims=(Z[1],Z[end]), c=:hot, title="3D RandomField (y-slice)"))
         heatmap(X, Z, Array(Yf)[:,y_sl,:]', aspect_ratio=1, xlims=(X[1],X[end]), ylims=(Z[1],Z[end]), c=:hot, title="3D RandomField (y-slice)"); frame(anim)
-        gif(anim, "RandomFIeld3D_gauss.gif", fps = 15)
+        gif(anim, "RandomField3D_gauss.gif", fps = 15)
     end
     if do_save  file = matopen("Rnd3Dg.mat", "w"); write(file, "Rnd3D", Array(Yf)); close(file)  end
     return

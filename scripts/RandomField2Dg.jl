@@ -80,7 +80,7 @@ end
     if do_viz
         # display(heatmap(X, Y, Array(Yf)', aspect_ratio=1, xlims=(X[1],X[end]), ylims=(Y[1],Y[end]), c=:hot, title="2D RandomField"))
         heatmap(X, Y, Array(Yf)', aspect_ratio=1, xlims=(X[1],X[end]), ylims=(Y[1],Y[end]), c=:hot, title="2D RandomField"); frame(anim)
-        gif(anim, "RandomFIeld2D_gauss.gif", fps = 15)
+        gif(anim, "RandomField2D_gauss.gif", fps = 15)
     end
     if do_save  file = matopen("Rnd2Dg.mat", "w"); write(file, "Rnd2D", Array(Yf)); close(file)  end
     return
