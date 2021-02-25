@@ -10,14 +10,17 @@ The implementation builds upon an approach proposed in \[[1][Raess2019]\] and em
 
 ParallelRandomFields.jl is the Julia version with additional multi-XPU support of the original CUDA C implementation published in Computers & Geosciences:
 ```tex
-@article{rass2019grf,
-    title={Efficient parallel random field generator for large 3-D geophysical problems},
-    author={R{\"a}ss, Ludovic and Kolyukhin, Dmitriy and Minakov, Alexander},
-    journal={Computers \& Geosciences},
-    volume={131},
-    pages={158--169},
-    year={2019},
-    publisher={Elsevier}
+@article{raess2019grf,
+    title = {Efficient parallel random field generator for large 3-D geophysical problems},
+    journal = {Computers & Geosciences},
+    volume = {131},
+    pages = {158-169},
+    year = {2019},
+    issn = {0098-3004},
+    doi = {https://doi.org/10.1016/j.cageo.2019.06.007},
+    url = {https://www.sciencedirect.com/science/article/pii/S0098300418309944},
+    author = {Ludovic Räss and Dmitriy Kolyukhin and Alexander Minakov},
+    keywords = {Geophysics, Geostatistics, Seismology, Computational methods, Parallel and high-performance computing}
 }
 ```
 
