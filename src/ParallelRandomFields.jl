@@ -11,23 +11,51 @@ https://github.com/luraess/ParallelRandomFields.jl
 
 To see a description of a function or a macro type `?<functionname>`.
 """
-
 module ParallelRandomFields
 
-# 2D generator
-include("generate_RndField2D_expon.jl")
+# using Random, Printf, Statistics
+# using ParallelStencil
 
-# 2D random field
-include("RndField2D_expon.jl")
+module grf2D_Threads
 
+    export grf2D_expon!, grf2D_gauss!, generate_grf2D
 
-# include("RandomField2D_gauss.jl")
+    using ParallelStencil
+    using ParallelStencil.FiniteDifferences2D
 
-# 3D generator
-# include("RandomField3D_expon.jl")
-# include("RandomField3D_gauss.jl")
+    @init_parallel_stencil(Threads, Float64, 2)
+    macro sin(args...) esc(:(Base.sin($(args...)))) end
+    macro cos(args...) esc(:(Base.cos($(args...)))) end
 
-# 3D MPI generator
+    include(joinpath("shared", "grf2D.jl"))
 
+    include(joinpath("shared", "generate_grf2D.jl"))
+end
+
+# ParallelStencil.@reset_parallel_stencil()
+# module grf2D_CUDA
+#     using ParallelStencil
+#     using ParallelStencil.FiniteDifferences2D
+#     @init_parallel_stencil(CUDA, Float64, 2)
+
+#     macro sin(args...) esc(:(CUDA.sin($(args...)))) end
+#     macro cos(args...) esc(:(CUDA.cos($(args...)))) end
+
+#     include(joinpath(@__DIR__, "shared", "grf2D.jl"))
+
+# end
+
+# ParallelStencil.@reset_parallel_stencil()
+# module grf3D_Threads
+#     using ParallelStencil
+#     using ParallelStencil.FiniteDifferences3D
+
+#     @init_parallel_stencil(Threads, Float64, 3)
+#     macro sin(args...) esc(:(Base.sin($(args...)))) end
+#     macro cos(args...) esc(:(Base.cos($(args...)))) end
+
+#     # include(joinpath("shared", "grf2D.jl"))
+
+# end
 
 end # Module ParallelRandomFields
