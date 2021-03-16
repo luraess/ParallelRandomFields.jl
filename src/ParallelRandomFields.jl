@@ -13,8 +13,7 @@ To see a description of a function or a macro type `?<functionname>`.
 """
 module ParallelRandomFields
 
-# using Random, Printf, Statistics
-# using ParallelStencil
+using ParallelStencil
 
 module grf2D_Threads
 
@@ -22,40 +21,61 @@ module grf2D_Threads
 
     using ParallelStencil
     using ParallelStencil.FiniteDifferences2D
-
     @init_parallel_stencil(Threads, Float64, 2)
+
     macro sin(args...) esc(:(Base.sin($(args...)))) end
     macro cos(args...) esc(:(Base.cos($(args...)))) end
 
     include(joinpath("shared", "grf2D.jl"))
-
     include(joinpath("shared", "generate_grf2D.jl"))
 end
 
-# ParallelStencil.@reset_parallel_stencil()
-# module grf2D_CUDA
-#     using ParallelStencil
-#     using ParallelStencil.FiniteDifferences2D
-#     @init_parallel_stencil(CUDA, Float64, 2)
+ParallelStencil.@reset_parallel_stencil()
+module grf3D_Threads
 
-#     macro sin(args...) esc(:(CUDA.sin($(args...)))) end
-#     macro cos(args...) esc(:(CUDA.cos($(args...)))) end
+    # export grf3D_expon!, grf3D_gauss!, generate_grf3D
 
-#     include(joinpath(@__DIR__, "shared", "grf2D.jl"))
+    using ParallelStencil
+    using ParallelStencil.FiniteDifferences3D
+    @init_parallel_stencil(Threads, Float64, 3)
 
-# end
+    macro sin(args...) esc(:(Base.sin($(args...)))) end
+    macro cos(args...) esc(:(Base.cos($(args...)))) end
 
-# ParallelStencil.@reset_parallel_stencil()
-# module grf3D_Threads
-#     using ParallelStencil
-#     using ParallelStencil.FiniteDifferences3D
+    # include(joinpath("shared", "grf3D.jl"))
+    # include(joinpath("shared", "generate_grf3D.jl"))
+end
 
-#     @init_parallel_stencil(Threads, Float64, 3)
-#     macro sin(args...) esc(:(Base.sin($(args...)))) end
-#     macro cos(args...) esc(:(Base.cos($(args...)))) end
+ParallelStencil.@reset_parallel_stencil()
+module grf2D_CUDA
 
-#     # include(joinpath("shared", "grf2D.jl"))
+    export grf2D_expon!, grf2D_gauss!, generate_grf2D
 
-# end
+    using ParallelStencil
+    using ParallelStencil.FiniteDifferences2D
+    @init_parallel_stencil(CUDA, Float64, 2)
+
+    macro sin(args...) esc(:(CUDA.sin($(args...)))) end
+    macro cos(args...) esc(:(CUDA.cos($(args...)))) end
+
+    include(joinpath("shared", "grf2D.jl"))
+    include(joinpath("shared", "generate_grf2D.jl"))
+end
+
+ParallelStencil.@reset_parallel_stencil()
+module grf3D_CUDA
+
+    # export grf3D_expon!, grf3D_gauss!, generate_grf3D
+
+    using ParallelStencil
+    using ParallelStencil.FiniteDifferences3D
+    @init_parallel_stencil(CUDA, Float64, 3)
+
+    macro sin(args...) esc(:(CUDA.sin($(args...)))) end
+    macro cos(args...) esc(:(CUDA.cos($(args...)))) end
+
+    # include(joinpath("shared", "grf3D.jl"))
+    # include(joinpath("shared", "generate_grf3D.jl"))
+end
 
 end # Module ParallelRandomFields
