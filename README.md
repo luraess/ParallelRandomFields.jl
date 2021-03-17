@@ -128,17 +128,13 @@ ParallelRandomFields relies on:
 
 
 ## Installation
-ParallelRandomFields may be installed directly with the [Julia package manager](https://docs.julialang.org/en/v1/stdlib/Pkg/index.html) from the [Julia REPL]:
+ParallelRandomFields may be installed directly with the [Julia package manager](https://docs.julialang.org/en/v1/stdlib/Pkg/index.html) from the [Julia REPL]. 
+
+👉 ParallelRandomFields relies on [ParallelStencil.jl] which is not registered yet, reason why you will first have to install [ParallelStencil.jl] prior to installing ParallelRandomFields:
 ```julia-repl
 julia>]
-
-  pkg> add https://github.com/luraess/ParallelRandomFields.jl
-```
-👉 Note: [ParallelStencil.jl] not being registered yet, you may need to install it manually from within the [Julia REPL] prior to instantiating and activating the project:
-```julia-repl
-julia>]
-
   pkg> add https://github.com/omlins/ParallelStencil.jl
+  pkg> add https://github.com/luraess/ParallelRandomFields.jl
 ```
 
 
