@@ -28,8 +28,6 @@ using MAT, Plots
     Yf      = @zeros(nx, ny)
     # Visu init
     if do_viz
-        # ENV["GKSwstype"]="nul"; if isdir("viz2D_exp")==false mkdir("viz2D_exp") end; loadpath = "./viz2D_exp/"; anim = Animation(loadpath,String[])
-        # println("Animation directory: $(anim.dir)")
         X, Y = -lx/2:dx:lx/2, -ly/2:dy:ly/2
     end
 
@@ -45,8 +43,6 @@ using MAT, Plots
     # Visualisation
     if do_viz
         display(heatmap(X, Y, Array(Yf)', aspect_ratio=1, xlims=(X[1],X[end]), ylims=(Y[1],Y[end]), c=:hot, title="2D RandomField"))
-        # heatmap(X, Y, Array(Yf)', aspect_ratio=1, xlims=(X[1],X[end]), ylims=(Y[1],Y[end]), c=:hot, title="2D RandomField"); frame(anim)
-        # gif(anim, "RandomField2D_exp.gif", fps = 15)
     end
     if do_save  file = matopen("grf2D_$(cov_typ).mat", "w"); write(file, "grf2D", Array(Yf)); close(file)  end
 
@@ -54,4 +50,3 @@ using MAT, Plots
 end
 
 generate_grf2D()
-
