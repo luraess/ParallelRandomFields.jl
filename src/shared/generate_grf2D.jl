@@ -1,8 +1,7 @@
 using MAT, Plots
 
-@views function generate_grf2D(;cov_typ="expon", do_viz=true, do_save=false,
-                                lx=100.0, ly=100.0, sf=1.0, cl=(10.0, 8.0), k_m=100.0, nh=10000,
-                                nx=64, ny=64)
+@views function generate_grf2D(lx=100.0, ly=100.0, sf=1.0, cl=(10.0, 8.0), k_m=100.0, nh=10000, nx=64, ny=64;
+                               cov_typ="expon", do_reset=true, do_viz=true, do_save=false)
     # Derived numerics
     dx, dy  = lx/nx, ly/ny  # numerical grid step size
     # Array allocation
@@ -14,10 +13,10 @@ using MAT, Plots
 
     if cov_typ=="expon"
         # Generate the 2D exponential covariance function
-        grf2D_expon!(Yf, sf, cl, nh, nx, ny, dx, dy; do_reset=true)
+        grf2D_expon!(Yf, sf, cl, nh, nx, ny, dx, dy; do_reset)
     elseif cov_typ=="gauss"
         # Generate the 2D Gaussian covariance function
-        grf2D_gauss!(Yf, sf, cl[1]/2.0, nh, k_m, nx, ny, dx, dy; do_reset=true)
+        grf2D_gauss!(Yf, sf, cl[1]/2.0, nh, k_m, nx, ny, dx, dy; do_reset)
     else
         error("Trying to run with undefined covariance function.")
     end
