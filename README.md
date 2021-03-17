@@ -25,23 +25,15 @@ ParallelRandomFields.jl is the Julia version with additional multi-XPU support o
 ```
 
 ## Content
-* [Gaussian random field generator](#gaussian-random-field-generator)
-* [Supported backends](#supported-backends)
 * [Module documentation callable from the Julia REPL / IJulia](#module-documentation-callable-from-the-julia-repl--ijulia)
 * [Usage](#usage)
+* [Supported backends](#supported-backends)
+* [Multi-XPU implementation](#multi-xpu-implementation)
 * [Dependencies](#dependencies)
 * [Installation](#installation)
 * [Development status](#development-status)
 * [Questions, comments and discussions](#questions-comments-and-discussions)
 * [References](#references)
-
-
-## Gaussian random field generator
-
-
-
-## Supported backends
-
 
 
 ## Module documentation callable from the Julia REPL / IJulia
@@ -84,12 +76,31 @@ search: ParallelRandomFields
   To see a description of a function type ?<functionname>.
 ```
 
+
 ## Usage
-ParallelRandomFields can be interactively generated within the [Julia REPL] using the 2D or 3D generator functions `generate_grf2D()`, `generate_grf3D()` from the selected submodule depending on number of dimensions and backend.
+Parallel random fields can be interactively generated within the [Julia REPL] using the 2D or 3D generator functions `generate_grf2D()`, `generate_grf3D()` available from the selected submodule depending on the number of dimensions (2D, 3D) and backend (`Threads`, `CUDA`). Consult the submodule and function documentation callable from the [Julia REPL] or in [IJulia] for further details.
+
+- The 2D generator functions `generate_grf2D()` calls random field realisation functions `grf2D_expon!()` (exponential covariance) and `grf2D_gauss!()` (Gaussian covariance)on the chosen backend.
+
+- The 3D generator functions `generate_grf3D()` calls random field realisation functions `grf2D_expon!()` (exponential covariance) and `grf2D_gauss!()` (Gaussian covariance) on the chosen backend.
+
+- The random field realisation functions (`grf2D_expon!()`, `grf2D_gauss!()`, `grf3D_expon!()`, `grf3D_gauss!()`) can be used within user-specific external code using [ParallelStencil] to generate random fields.
+
+💡 Besides the module functionalities, the [scripts/](scripts/) folder contains:
+- an [`runme2D_Threads.jl`](scripts/runme2D_Threads.jl) code that provides an explicit example of implementing the 2D random field realisation functions (`grf2D_expon!()`, `grf2D_gauss!()`) on the default `Threads` backend;
+
+- a [ParallelRandomFields_multixpu/](scripts/ParallelRandomFields_multixpu) folder that contains the multi-XPU sub-project **to be incorporated soon to the main module**;
+
+- a [standalone_scripts/](scripts/standalone_scripts) folder that contains standalone "monolithic" random field generator scripts (originally used prior to creating the ParallelRandomFields module).
 
 
-Note that for optimal performance the script should be launched from the shell using the project's dependencies `--project`, disabling array bound checking `--check-bounds=no`, and using optimization level 3 `-O3`.
+## Supported backends
 
+
+## [Multi-XPU implementation]
+The advantage of the iterative random field generation algorithm is the trivial distributed memory parallelisation. The generation algorithm does not perform any communication among neighbouring cells nor global operations making it highly suitable for an efficient distributed memory parallelisation implementation using [ImplicitGlobalGrid.jl] relying on [MPI.jl] and [CUDA.jl] for CUDA-aware MPI features.
+
+🚧 The multi-XPU routines are not yet part of the main module but fully operational and accessible [here](scripts/ParallelRandomFields_multixpu) - WIP.
 
 Note: refer to the documentation of your Supercomputing Centre for instructions to run Julia at scale. Instructions for running on the Piz Daint GPU supercomputer at the [Swiss National Supercomputing Centre](https://www.cscs.ch/computers/piz-daint/) can be found [here](https://user.cscs.ch/tools/interactive/julia/) and for running on the octopus GPU supercomputer at the [Swiss Geocomputing Centre](https://wp.unil.ch/geocomputing/octopus/) can be found [here](https://gist.github.com/luraess/45a7a4059d8ace694812e7e301f1a258).
 
@@ -107,7 +118,7 @@ ParallelRandomFields may be installed directly with the [Julia package manager](
 julia>]
   pkg> add https://github.com/luraess/ParallelRandomFields.jl
 ```
-👉 Note: [ParallelStencil.jl] not being registered yet, you may need to install it manually from within the [Julia REPL] prior to instantiating and activating the project:_
+👉 Note: [ParallelStencil.jl] not being registered yet, you may need to install it manually from within the [Julia REPL] prior to instantiating and activating the project:
 ```julia-repl
 julia>]
   pkg> add https://github.com/omlins/ParallelStencil.jl
@@ -116,6 +127,10 @@ julia>]
 
 ## Development status
 This section lists the current development status of the module.
+
+🚧 **TODOs**
+- Move the multi-XPU "standalone" implementation to within the module
+- Enhance documentation 
 
 
 ## Questions, comments and discussions
@@ -136,4 +151,4 @@ To discuss numerical/domain-science issues, please post on Julia Discourse in th
 [MPI.jl]: https://github.com/JuliaParallel/MPI.jl
 [CUDA.jl]: https://github.com/JuliaGPU/CUDA.jl
 [Julia REPL]: https://docs.julialang.org/en/v1/stdlib/REPL/
-
+[IJulia]: https://github.com/JuliaLang/IJulia.jl
