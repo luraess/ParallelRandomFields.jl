@@ -53,7 +53,7 @@ search: ParallelRandomFields
 
     •    anisotropic exponential
 
-    •    isotropic Gaussian.
+    •    isotropic Gaussian
 
   ParallelRandomFields can be deployed on both (multi-) GPUs and CPUs.
 
