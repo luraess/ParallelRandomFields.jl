@@ -1,6 +1,6 @@
 name = "ParallelRandomFields"
 uuid = "5519cec6-2252-4828-b89b-d1114f8bfbc2"
-authors = ["Ludovic Räss <ludovic.rass@gmail.com> and contributors"]
+authors = ["Ludovic Räss and contributors"]
 version = "0.1.0"
 
 [deps]
