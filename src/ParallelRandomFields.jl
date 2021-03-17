@@ -1,81 +1,39 @@
 """
 Module ParallelRandomFields
 
-Enables to sample spatial realisations of a 2D and 3D Gaussian random fields with given power spectrum: anisotropic exponential and isotropic Gaussian covariance functions. 
+Enables to sample spatial realisations of 2D and 3D Gaussian random fields with given power spectrum using follwoing covariance functions:
+- anisotropic exponential
+- isotropic Gaussian.
+
+ParallelRandomFields can be deployed on both (multi-) GPUs and CPUs.
 
 # General overview and examples
 https://github.com/luraess/ParallelRandomFields.jl
 
-# Functions
-- to come
+Functions are defined in the submodules.
 
-To see a description of a function or a macro type `?<functionname>`.
+# Submodules
+- [`ParallelRandomFields.grf2D_Threads`](@ref)
+- [`ParallelRandomFields.grf3D_Threads`](@ref)
+- [`ParallelRandomFields.grf2D_CUDA`](@ref)
+- [`ParallelRandomFields.grf3D_CUDA`](@ref)
+
+To see a description of a function type `?<functionname>`.
 """
 module ParallelRandomFields
 
 using ParallelStencil
 
-module grf2D_Threads
-
-    export grf2D_expon!, grf2D_gauss!, generate_grf2D
-
-    using ParallelStencil
-    using ParallelStencil.FiniteDifferences2D
-    @init_parallel_stencil(Threads, Float64, 2)
-
-    macro sin(args...) esc(:(Base.sin($(args...)))) end
-    macro cos(args...) esc(:(Base.cos($(args...)))) end
-
-    include(joinpath("shared", "grf2D.jl"))
-    include(joinpath("shared", "generate_grf2D.jl"))
-end
+# include submodules and reset ParallelStencil prior
+include("grf2D_Threads.jl")
 
 ParallelStencil.@reset_parallel_stencil()
-module grf3D_Threads
-
-    export grf3D_expon!, grf3D_gauss!, generate_grf3D
-
-    using ParallelStencil
-    using ParallelStencil.FiniteDifferences3D
-    @init_parallel_stencil(Threads, Float64, 3)
-
-    macro sin(args...) esc(:(Base.sin($(args...)))) end
-    macro cos(args...) esc(:(Base.cos($(args...)))) end
-
-    include(joinpath("shared", "grf3D.jl"))
-    include(joinpath("shared", "generate_grf3D.jl"))
-end
+include("grf3D_Threads.jl")
 
 ParallelStencil.@reset_parallel_stencil()
-module grf2D_CUDA
-
-    export grf2D_expon!, grf2D_gauss!, generate_grf2D
-
-    using ParallelStencil
-    using ParallelStencil.FiniteDifferences2D
-    @init_parallel_stencil(CUDA, Float64, 2)
-
-    macro sin(args...) esc(:(CUDA.sin($(args...)))) end
-    macro cos(args...) esc(:(CUDA.cos($(args...)))) end
-
-    include(joinpath("shared", "grf2D.jl"))
-    include(joinpath("shared", "generate_grf2D.jl"))
-end
+include("grf2D_CUDA.jl")
 
 ParallelStencil.@reset_parallel_stencil()
-module grf3D_CUDA
-
-    export grf3D_expon!, grf3D_gauss!, generate_grf3D
-
-    using ParallelStencil
-    using ParallelStencil.FiniteDifferences3D
-    @init_parallel_stencil(CUDA, Float64, 3)
-
-    macro sin(args...) esc(:(CUDA.sin($(args...)))) end
-    macro cos(args...) esc(:(CUDA.cos($(args...)))) end
-
-    include(joinpath("shared", "grf3D.jl"))
-    include(joinpath("shared", "generate_grf3D.jl"))
-end
+include("grf3D_CUDA.jl")
 
 end # Module ParallelRandomFields
