@@ -55,7 +55,7 @@ end
     lf     = 2.0*cl/sqrt(pi)
     # Scalar allocations
     ϕ=0.0; k=0.0; d=0.0; θ=0.0; v1=0.0; v2=0.0; v3=0.0; a=0.0; b=0.0
-    println("Starting 2D RandomField generation (isotropic Gaussian covariance function)...")
+    println("Starting 3D RandomField generation (isotropic Gaussian covariance function)...")
     # Loop over nh harmonics
     for ih = 1:nh
         if (ih==501)  global wtime0 = Base.time()  end
