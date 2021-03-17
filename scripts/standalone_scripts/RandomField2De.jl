@@ -44,8 +44,6 @@ end
     ϕ=0.0; k=0.0; d=0.0; θ=0.0; v1=0.0; v2=0.0; a=0.0; b=0.0
     # Preparation of visualisation
     if do_viz
-        ENV["GKSwstype"]="nul"; if isdir("viz2D_exp")==false mkdir("viz2D_exp") end; loadpath = "./viz2D_exp/"; anim = Animation(loadpath,String[])
-        println("Animation directory: $(anim.dir)")
         X, Y = -lx/2:dx:lx/2, -ly/2:dy:ly/2
     end
     println("Starting 2D RandomField generation (anisotropic exponential covariance function)...")
@@ -75,11 +73,9 @@ end
     @printf("Total harmonic iters=%d, time=%1.3e sec (@ T_eff = %1.2f GB/s) \n", nh, wtime, round(T_eff, sigdigits=2))
     # Visualisation
     if do_viz
-        # display(heatmap(X, Y, Array(Yf)', aspect_ratio=1, xlims=(X[1],X[end]), ylims=(Y[1],Y[end]), c=:hot, title="3D RandomField (y-slice)"))
-        heatmap(X, Y, Array(Yf)', aspect_ratio=1, xlims=(X[1],X[end]), ylims=(Y[1],Y[end]), c=:hot, title="2D RandomField"); frame(anim)
-        gif(anim, "RandomField2D_exp.gif", fps = 15)
+        display(heatmap(X, Y, Array(Yf)', aspect_ratio=1, xlims=(X[1],X[end]), ylims=(Y[1],Y[end]), c=:hot, title="2D RandomField"))
     end
-    if do_save  file = matopen("Rnd2De.mat", "w"); write(file, "Rnd2D", Array(Yf)); close(file)  end
+    if do_save  file = matopen("grf2D_expon.mat", "w"); write(file, "grf2D", Array(Yf)); close(file)  end
     return
 end
 

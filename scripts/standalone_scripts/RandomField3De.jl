@@ -44,8 +44,6 @@ end
     ϕ=0.0; k=0.0; d=0.0; θ=0.0; v1=0.0; v2=0.0; v3=0.0; a=0.0; b=0.0
     # Preparation of visualisation
     if do_viz
-        ENV["GKSwstype"]="nul"; if isdir("viz3D_exp")==false mkdir("viz3D_exp") end; loadpath = "./viz3D_exp/"; anim = Animation(loadpath,String[])
-        println("Animation directory: $(anim.dir)")
         y_sl    = Int(ceil(ny/2))
         X, Y, Z = -lx/2:dx:lx/2, -ly/2:dy:ly/2, -lz/2:dz:lz/2
     end
@@ -77,11 +75,9 @@ end
     @printf("Total harmonic iters=%d, time=%1.3e sec (@ T_eff = %1.2f GB/s) \n", nh, wtime, round(T_eff, sigdigits=2))
     # Visualisation
     if do_viz
-        # display(heatmap(X, Z, Array(Yf)[:,y_sl,:]', aspect_ratio=1, xlims=(X[1],X[end]), ylims=(Z[1],Z[end]), c=:hot, title="3D RandomField (y-slice)"))
-        heatmap(X, Z, Array(Yf)[:,y_sl,:]', aspect_ratio=1, xlims=(X[1],X[end]), ylims=(Z[1],Z[end]), c=:hot, title="3D RandomField (y-slice)"); frame(anim)
-        gif(anim, "RandomField3D_exp.gif", fps = 15)
+        display(heatmap(X, Z, Array(Yf)[:,y_sl,:]', aspect_ratio=1, xlims=(X[1],X[end]), ylims=(Z[1],Z[end]), c=:hot, title="3D RandomField (y-slice)"))
     end
-    if do_save  file = matopen("Rnd3De.mat", "w"); write(file, "Rnd3D", Array(Yf)); close(file)  end
+    if do_save  file = matopen("grf3D_expon.mat", "w"); write(file, "grf3D", Array(Yf)); close(file)  end
     return
 end
 
