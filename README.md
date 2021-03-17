@@ -40,7 +40,9 @@ ParallelRandomFields.jl is the Julia version with additional multi-XPU support o
 The module documentation can be called from the [Julia REPL] or in [IJulia]:
 ```julia-repl
 julia> using ParallelRandomFields
+
 julia>?
+
 help?> ParallelRandomFields
 search: ParallelRandomFields
 
@@ -80,24 +82,37 @@ search: ParallelRandomFields
 ## Usage
 Parallel random fields can be interactively generated within the [Julia REPL] using the 2D or 3D generator functions `generate_grf2D()`, `generate_grf3D()` available from the selected submodule depending on the number of dimensions (2D, 3D) and backend (`Threads`, `CUDA`). Consult the submodule and function documentation callable from the [Julia REPL] or in [IJulia] for further details.
 
+To generate a 2D Gaussian random field with exponential anisotropic covariance function, type following in the [Julia REPL]:
+```julia-repl
+julia> using ParallelRandomFields
+
+julia> using ParallelRandomFields.grf2D_Threads
+
+julia> generate_grf2D();
+```
+
+### Main functionalities
 - The 2D generator functions `generate_grf2D()` calls random field realisation functions `grf2D_expon!()` (exponential covariance) and `grf2D_gauss!()` (Gaussian covariance)on the chosen backend.
 
 - The 3D generator functions `generate_grf3D()` calls random field realisation functions `grf2D_expon!()` (exponential covariance) and `grf2D_gauss!()` (Gaussian covariance) on the chosen backend.
 
 - The random field realisation functions (`grf2D_expon!()`, `grf2D_gauss!()`, `grf3D_expon!()`, `grf3D_gauss!()`) can be used within user-specific external code using [ParallelStencil] to generate random fields.
 
+---
+
 💡 Besides the module functionalities, the [scripts/](scripts/) folder contains:
 - an [`runme2D_Threads.jl`](scripts/runme2D_Threads.jl) code that provides an explicit example of implementing the 2D random field realisation functions (`grf2D_expon!()`, `grf2D_gauss!()`) on the default `Threads` backend;
 
-- a [ParallelRandomFields_multixpu/](scripts/ParallelRandomFields_multixpu) folder that contains the multi-XPU sub-project **to be incorporated soon to the main module**;
+- the folder [ParallelRandomFields_multixpu/](scripts/ParallelRandomFields_multixpu) contains the multi-XPU sub-project **to be incorporated soon to the main module**;
 
-- a [standalone_scripts/](scripts/standalone_scripts) folder that contains standalone "monolithic" random field generator scripts (originally used prior to creating the ParallelRandomFields module).
+- the folder [standalone_scripts/](scripts/standalone_scripts) contains standalone "monolithic" random field generator scripts (originally used prior to creating the ParallelRandomFields module).
 
 
 ## Supported backends
+ParallelRandomFields builds upon [ParallelStencil.jl] and thus supports the default `Threads` backend as well as the `CUDA` backend for GPU acceleration. Multi-threading is enabled upon export of the [JULIA_NUM_THREADS] variable.
 
 
-## [Multi-XPU implementation]
+## Multi-XPU implementation
 The advantage of the iterative random field generation algorithm is the trivial distributed memory parallelisation. The generation algorithm does not perform any communication among neighbouring cells nor global operations making it highly suitable for an efficient distributed memory parallelisation implementation using [ImplicitGlobalGrid.jl] relying on [MPI.jl] and [CUDA.jl] for CUDA-aware MPI features.
 
 🚧 The multi-XPU routines are not yet part of the main module but fully operational and accessible [here](scripts/ParallelRandomFields_multixpu) - WIP.
@@ -116,11 +131,13 @@ ParallelRandomFields relies on:
 ParallelRandomFields may be installed directly with the [Julia package manager](https://docs.julialang.org/en/v1/stdlib/Pkg/index.html) from the [Julia REPL]:
 ```julia-repl
 julia>]
+
   pkg> add https://github.com/luraess/ParallelRandomFields.jl
 ```
 👉 Note: [ParallelStencil.jl] not being registered yet, you may need to install it manually from within the [Julia REPL] prior to instantiating and activating the project:
 ```julia-repl
 julia>]
+
   pkg> add https://github.com/omlins/ParallelStencil.jl
 ```
 
@@ -152,3 +169,4 @@ To discuss numerical/domain-science issues, please post on Julia Discourse in th
 [CUDA.jl]: https://github.com/JuliaGPU/CUDA.jl
 [Julia REPL]: https://docs.julialang.org/en/v1/stdlib/REPL/
 [IJulia]: https://github.com/JuliaLang/IJulia.jl
+[JULIA_NUM_THREADS]:https://docs.julialang.org/en/v1.0.0/manual/environment-variables/#JULIA_NUM_THREADS-1
