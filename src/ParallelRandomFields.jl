@@ -1,7 +1,7 @@
 """
 Module ParallelRandomFields
 
-Enables to sample spatial realisations of a 2-D and 3-D Gaussian random fields with given power spectrum: anisotropic exponential and isotropic Gaussian covariance functions. 
+Enables to sample spatial realisations of a 2D and 3D Gaussian random fields with given power spectrum: anisotropic exponential and isotropic Gaussian covariance functions. 
 
 # General overview and examples
 https://github.com/luraess/ParallelRandomFields.jl
@@ -33,7 +33,7 @@ end
 ParallelStencil.@reset_parallel_stencil()
 module grf3D_Threads
 
-    # export grf3D_expon!, grf3D_gauss!, generate_grf3D
+    export grf3D_expon!, grf3D_gauss!, generate_grf3D
 
     using ParallelStencil
     using ParallelStencil.FiniteDifferences3D
@@ -42,8 +42,8 @@ module grf3D_Threads
     macro sin(args...) esc(:(Base.sin($(args...)))) end
     macro cos(args...) esc(:(Base.cos($(args...)))) end
 
-    # include(joinpath("shared", "grf3D.jl"))
-    # include(joinpath("shared", "generate_grf3D.jl"))
+    include(joinpath("shared", "grf3D.jl"))
+    include(joinpath("shared", "generate_grf3D.jl"))
 end
 
 ParallelStencil.@reset_parallel_stencil()
@@ -65,7 +65,7 @@ end
 ParallelStencil.@reset_parallel_stencil()
 module grf3D_CUDA
 
-    # export grf3D_expon!, grf3D_gauss!, generate_grf3D
+    export grf3D_expon!, grf3D_gauss!, generate_grf3D
 
     using ParallelStencil
     using ParallelStencil.FiniteDifferences3D
@@ -74,8 +74,8 @@ module grf3D_CUDA
     macro sin(args...) esc(:(CUDA.sin($(args...)))) end
     macro cos(args...) esc(:(CUDA.cos($(args...)))) end
 
-    # include(joinpath("shared", "grf3D.jl"))
-    # include(joinpath("shared", "generate_grf3D.jl"))
+    include(joinpath("shared", "grf3D.jl"))
+    include(joinpath("shared", "generate_grf3D.jl"))
 end
 
 end # Module ParallelRandomFields
