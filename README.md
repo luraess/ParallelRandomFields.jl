@@ -92,11 +92,11 @@ julia> generate_grf2D();
 ```
 
 ### Main functionalities
-- The 2D generator functions `generate_grf2D()` calls random field realisation functions `grf2D_expon!()` (exponential covariance) and `grf2D_gauss!()` (Gaussian covariance)on the chosen backend.
+- The 2D generator function `generate_grf2D()` calls random field realisation functions `grf2D_expon!()` (exponential covariance) and `grf2D_gauss!()` (Gaussian covariance) on the chosen backend (CPU/GPU).
 
-- The 3D generator functions `generate_grf3D()` calls random field realisation functions `grf2D_expon!()` (exponential covariance) and `grf2D_gauss!()` (Gaussian covariance) on the chosen backend.
+- The 3D generator function `generate_grf3D()` calls random field realisation functions `grf3D_expon!()` (exponential covariance) and `grf3D_gauss!()` (Gaussian covariance) on the chosen backend (CPU/GPU).
 
-- The random field realisation functions (`grf2D_expon!()`, `grf2D_gauss!()`, `grf3D_expon!()`, `grf3D_gauss!()`) can be used within user-specific external code using [ParallelStencil] to generate random fields.
+- The random field realisation functions (`grf2D_expon!()`, `grf2D_gauss!()`, `grf3D_expon!()`, `grf3D_gauss!()`) can be used within user-specific external code using [ParallelStencil] to generate random fields ([see this example](scripts/runme2D_Threads.jl)).
 
 ---
 
@@ -113,7 +113,7 @@ ParallelRandomFields builds upon [ParallelStencil.jl] and thus supports the defa
 
 
 ## Multi-XPU implementation
-The advantage of the iterative random field generation algorithm is the trivial distributed memory parallelisation. The generation algorithm does not perform any communication among neighbouring cells nor global operations making it highly suitable for an efficient distributed memory parallelisation implementation using [ImplicitGlobalGrid.jl] relying on [MPI.jl] and [CUDA.jl] for CUDA-aware MPI features.
+The advantage of the iterative random field generation algorithm is the trivial distributed memory parallelisation. The generation algorithm does not perform any communication among neighbouring cells nor global operations making it highly suitable for an efficient distributed memory parallelisation implementation using [ImplicitGlobalGrid.jl] (relying on [MPI.jl] and [CUDA.jl] for CUDA-aware MPI features).
 
 🚧 The multi-XPU routines are not yet part of the main module but fully operational and accessible [here](scripts/ParallelRandomFields_multixpu) - WIP.
 
