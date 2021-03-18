@@ -21,7 +21,7 @@ using MAT, Plots
     k_m     = 100.0         # maximum value of the wave number
     # Numerics
     nh      = 10000         # inner parameter, number of harmonics
-    nx, ny  = 64, 64      # numerical grid resolution
+    nx, ny  = 64, 64        # numerical grid resolution
     # Derived numerics
     dx, dy  = lx/nx, ly/ny  # numerical grid step size
     # Array allocation
@@ -30,7 +30,6 @@ using MAT, Plots
     if do_viz
         X, Y = -lx/2:dx:lx/2, -ly/2:dy:ly/2
     end
-
     if cov_typ=="expon"
         # Generate the 2D exponential covariance function
         grf2D_expon!(Yf, sf, cl_e, nh, nx, ny, dx, dy; do_reset=true)
@@ -45,7 +44,6 @@ using MAT, Plots
         display(heatmap(X, Y, Array(Yf)', aspect_ratio=1, xlims=(X[1],X[end]), ylims=(Y[1],Y[end]), c=:hot, title="2D RandomField"))
     end
     if do_save  file = matopen("grf2D_$(cov_typ).mat", "w"); write(file, "grf2D", Array(Yf)); close(file)  end
-
     return
 end
 
