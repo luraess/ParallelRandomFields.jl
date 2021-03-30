@@ -128,12 +128,9 @@ ParallelRandomFields relies on:
 
 
 ## Installation
-ParallelRandomFields may be installed directly with the [Julia package manager](https://docs.julialang.org/en/v1/stdlib/Pkg/index.html) from the [Julia REPL]. 
-
-👉 ParallelRandomFields relies on [ParallelStencil.jl] which is not registered yet, reason why you will first have to install [ParallelStencil.jl] prior to installing ParallelRandomFields:
+ParallelRandomFields may be installed directly with the [Julia package manager](https://docs.julialang.org/en/v1/stdlib/Pkg/index.html) from the [Julia REPL]:
 ```julia-repl
-julia>]
-  pkg> add https://github.com/omlins/ParallelStencil.jl
+julia> ]
   pkg> add https://github.com/luraess/ParallelRandomFields.jl
 ```
 
@@ -166,3 +163,7 @@ To discuss numerical/domain-science issues, please post on Julia Discourse in th
 [Julia REPL]: https://docs.julialang.org/en/v1/stdlib/REPL/
 [IJulia]: https://github.com/JuliaLang/IJulia.jl
 [JULIA_NUM_THREADS]:https://docs.julialang.org/en/v1.0.0/manual/environment-variables/#JULIA_NUM_THREADS-1
+[GPU topic]: https://discourse.julialang.org/c/domain/gpu/
+[Julia at Scale topic]: https://discourse.julialang.org/c/domain/parallel/
+[Numerics topic]: https://discourse.julialang.org/c/domain/numerics/
+[Modelling & Simulations topic]: https://discourse.julialang.org/c/domain/models
