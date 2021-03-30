@@ -131,7 +131,8 @@ ParallelRandomFields relies on:
 ParallelRandomFields may be installed directly with the [Julia package manager](https://docs.julialang.org/en/v1/stdlib/Pkg/index.html) from the [Julia REPL]:
 ```julia-repl
 julia> ]
-  pkg> add https://github.com/luraess/ParallelRandomFields.jl
+
+(ParallelRandomFields) pkg> add https://github.com/luraess/ParallelRandomFields.jl
 ```
 
 
