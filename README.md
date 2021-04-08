@@ -96,16 +96,21 @@ julia> generate_grf2D();
 
 - The 3D generator function `generate_grf3D()` calls random field realisation functions `grf3D_expon!()` (exponential covariance) and `grf3D_gauss!()` (Gaussian covariance) on the chosen backend (CPU/GPU).
 
-- The random field realisation functions (`grf2D_expon!()`, `grf2D_gauss!()`, `grf3D_expon!()`, `grf3D_gauss!()`) can be used within user-specific external code using [ParallelStencil] to generate random fields ([see this example](scripts/runme2D_Threads.jl)).
+- The random field realisation functions
+  - `grf2D_expon!()`
+  - `grf2D_gauss!()`
+  - `grf3D_expon!()`
+  - `grf3D_gauss!()`
+can be used within user-specific external code using [ParallelStencil.jl] to generate random fields ([see this example](scripts/runme2D_Threads.jl)).
 
 ---
 
-💡 Besides the module functionalities, the [scripts/](scripts/) folder contains:
+💡 Besides the module functionalities, the [scripts](scripts/) folder contains:
 - an [`runme2D_Threads.jl`](scripts/runme2D_Threads.jl) code that provides an explicit example of implementing the 2D random field realisation functions (`grf2D_expon!()`, `grf2D_gauss!()`) on the default `Threads` backend;
 
-- the folder [ParallelRandomFields_multixpu/](scripts/ParallelRandomFields_multixpu) contains the multi-XPU sub-project **to be incorporated soon to the main module**;
+- the folder [ParallelRandomFields_multixpu](scripts/ParallelRandomFields_multixpu) contains the multi-XPU sub-project **to be incorporated soon to the main module**;
 
-- the folder [standalone_scripts/](scripts/standalone_scripts) contains standalone "monolithic" random field generator scripts (originally used prior to creating the ParallelRandomFields module).
+- the folder [standalone_scripts](scripts/standalone_scripts) contains standalone "monolithic" random field generator scripts (originally used prior to creating the ParallelRandomFields module).
 
 
 ## Supported backends
@@ -141,7 +146,8 @@ This section lists the current development status of the module.
 
 🚧 **TODOs**
 - Move the multi-XPU "standalone" implementation within the module
-- Enhance documentation 
+- Enhance documentation
+- Add tests
 
 
 ## Questions, comments and discussions
