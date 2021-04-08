@@ -123,7 +123,7 @@ Note: refer to the documentation of your Supercomputing Centre for instructions 
 ## Dependencies
 ParallelRandomFields relies on:
 - [`ParallelStencil.jl`](https://github.com/omlins/ParallelStencil.jl) which builds upon [CUDA.jl] for GPU support
-- [`ImplicitGlobalGrid.jl`](https://github.com/eth-cscs/ImplicitGlobalGrid.jl) which build upon [MPI.jl]
+- [`ImplicitGlobalGrid.jl`](https://github.com/eth-cscs/ImplicitGlobalGrid.jl) which builds upon [MPI.jl]
 - [`MAT.jl`](https://github.com/JuliaIO/MAT.jl) and [`Plots.jl`](https://github.com/JuliaPlots/Plots.jl) are required for saving and visualisation purposes.
 
 
@@ -140,7 +140,7 @@ julia> ]
 This section lists the current development status of the module.
 
 🚧 **TODOs**
-- Move the multi-XPU "standalone" implementation to within the module
+- Move the multi-XPU "standalone" implementation within the module
 - Enhance documentation 
 
 
