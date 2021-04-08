@@ -96,13 +96,11 @@ julia> generate_grf2D();
 
 - The 3D generator function `generate_grf3D()` calls random field realisation functions `grf3D_expon!()` (exponential covariance) and `grf3D_gauss!()` (Gaussian covariance) on the chosen backend (CPU/GPU).
 
-- The random field realisation functions
+- The following random field realisation functions can be used within user-specific external code using [ParallelStencil.jl] to generate random fields ([see this example](scripts/runme2D_Threads.jl)):
   - `grf2D_expon!()`
   - `grf2D_gauss!()`
   - `grf3D_expon!()`
   - `grf3D_gauss!()`
-
-can be used within user-specific external code using [ParallelStencil.jl] to generate random fields ([see this example](scripts/runme2D_Threads.jl)).
 
 ---
 
