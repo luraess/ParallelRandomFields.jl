@@ -101,6 +101,7 @@ julia> generate_grf2D();
   - `grf2D_gauss!()`
   - `grf3D_expon!()`
   - `grf3D_gauss!()`
+
 can be used within user-specific external code using [ParallelStencil.jl] to generate random fields ([see this example](scripts/runme2D_Threads.jl)).
 
 ---
