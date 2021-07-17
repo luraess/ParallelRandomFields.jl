@@ -1,4 +1,3 @@
 .DS_Store
-Manifest.toml
 scripts/ParallelRandomFields_multixpu/Manifest.toml
-
+/Manifest.toml
