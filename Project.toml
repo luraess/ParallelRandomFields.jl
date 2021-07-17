@@ -1,7 +1,7 @@
 name = "ParallelRandomFields"
 uuid = "5519cec6-2252-4828-b89b-d1114f8bfbc2"
 authors = ["Ludovic Räss and contributors"]
-version = "0.1.0"
+version = "0.1.1"
 
 [deps]
 CUDA = "052768ef-5323-5732-b1bb-66c8b64840ba"
@@ -13,7 +13,10 @@ Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 
 [compat]
-julia = "1"
+CUDA = "3.1"
+ParallelStencil = "0.5"
+Plots = "1.13"
+julia = "1.6"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
