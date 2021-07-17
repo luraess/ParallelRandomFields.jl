@@ -89,9 +89,6 @@ module grf3D_Threads
     using ParallelStencil.FiniteDifferences3D
     @init_parallel_stencil(Threads, Float64, 3)
 
-    macro sin(args...) esc(:(Base.sin($(args...)))) end
-    macro cos(args...) esc(:(Base.cos($(args...)))) end
-
     include(joinpath("shared", "grf3D.jl"))
     include(joinpath("shared", "generate_grf3D.jl"))
 end

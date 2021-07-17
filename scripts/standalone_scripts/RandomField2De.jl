@@ -5,17 +5,13 @@ using ParallelStencil.FiniteDifferences2D
 @static if USE_GPU
     @init_parallel_stencil(CUDA, Float64, 2)
     CUDA.device!(GPU_ID) # select GPU
-    macro sin(args...) esc(:(CUDA.sin($(args...)))) end
-    macro cos(args...) esc(:(CUDA.cos($(args...)))) end
 else
     @init_parallel_stencil(Threads, Float64, 2)
-    macro sin(args...) esc(:(Base.sin($(args...)))) end
-    macro cos(args...) esc(:(Base.cos($(args...)))) end
 end
 using MAT, Random, Plots, Printf, Statistics
 ##################################################
 @parallel_indices (ix,iy) function compute_1!(Yf::Data.Array, v1::Data.Number, v2::Data.Number, a::Data.Number, b::Data.Number, dx::Data.Number, dy::Data.Number)
-    if (ix<=size(Yf,1) && iy<=size(Yf,2))  Yf[ix,iy] = Yf[ix,iy] + a*@sin( dx*(ix-0.5)*v1 + dy*(iy-0.5)*v2 ) + b*@cos( dx*(ix-0.5)*v1 + dy*(iy-0.5)*v2 )  end
+    if (ix<=size(Yf,1) && iy<=size(Yf,2))  Yf[ix,iy] = Yf[ix,iy] + a*sin( dx*(ix-0.5)*v1 + dy*(iy-0.5)*v2 ) + b*cos( dx*(ix-0.5)*v1 + dy*(iy-0.5)*v2 )  end
     return
 end
 

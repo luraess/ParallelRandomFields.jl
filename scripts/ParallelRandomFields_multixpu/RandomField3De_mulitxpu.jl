@@ -3,19 +3,15 @@ using ParallelStencil
 using ParallelStencil.FiniteDifferences3D
 @static if USE_GPU
     @init_parallel_stencil(CUDA, Float64, 3)
-    macro sin(args...) esc(:(CUDA.sin($(args...)))) end
-    macro cos(args...) esc(:(CUDA.cos($(args...)))) end
 else
     @init_parallel_stencil(Threads, Float64, 3)
-    macro sin(args...) esc(:(Base.sin($(args...)))) end
-    macro cos(args...) esc(:(Base.cos($(args...)))) end
 end
 using MAT, ImplicitGlobalGrid, Random, Plots, Printf, Statistics
 import MPI
 ##################################################
 @parallel_indices (ix,iy,iz) function compute_1!(Yf::Data.Array, v1::Data.Number, v2::Data.Number, v3::Data.Number, a::Data.Number, b::Data.Number, dx::Data.Number, dy::Data.Number, dz::Data.Number, nx::Int, ny::Int, nz::Int, co1::Int, co2::Int, co3::Int)
     if (ix<=size(Yf,1) && iy<=size(Yf,2) && iz<=size(Yf,3))  tmp  = dx*(co1*(nx-2) + ix - 0.5)*v1 + dy*(co2*(ny-2) + iy - 0.5)*v2 + dz*(co3*(nz-2) + iz - 0.5)*v3  end
-    if (ix<=size(Yf,1) && iy<=size(Yf,2) && iz<=size(Yf,3))  Yf[ix,iy,iz] = Yf[ix,iy,iz] + a*@sin( tmp ) + b*@cos( tmp )  end
+    if (ix<=size(Yf,1) && iy<=size(Yf,2) && iz<=size(Yf,3))  Yf[ix,iy,iz] = Yf[ix,iy,iz] + a*@in( tmp ) + b*cos( tmp )  end
     return
 end
 

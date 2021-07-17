@@ -1,7 +1,7 @@
 using Random, Printf, Statistics
 # XPU kernels
 @parallel_indices (ix,iy,iz) function compute_1!(Yf::Data.Array, v1::Data.Number, v2::Data.Number, v3::Data.Number, a::Data.Number, b::Data.Number, dx::Data.Number, dy::Data.Number, dz::Data.Number)
-    if (ix<=size(Yf,1) && iy<=size(Yf,2) && iz<=size(Yf,3))  Yf[ix,iy,iz] = Yf[ix,iy,iz] + a*@sin( dx*(ix-0.5)*v1 + dy*(iy-0.5)*v2 + dz*(iz-0.5)*v3 ) + b*@cos( dx*(ix-0.5)*v1 + dy*(iy-0.5)*v2 + dz*(iz-0.5)*v3 )  end
+    if (ix<=size(Yf,1) && iy<=size(Yf,2) && iz<=size(Yf,3))  Yf[ix,iy,iz] = Yf[ix,iy,iz] + a*sin( dx*(ix-0.5)*v1 + dy*(iy-0.5)*v2 + dz*(iz-0.5)*v3 ) + b*cos( dx*(ix-0.5)*v1 + dy*(iy-0.5)*v2 + dz*(iz-0.5)*v3 )  end
     return
 end
 

@@ -83,9 +83,6 @@ module grf2D_CUDA
     using ParallelStencil.FiniteDifferences2D
     @init_parallel_stencil(CUDA, Float64, 2)
 
-    macro sin(args...) esc(:(CUDA.sin($(args...)))) end
-    macro cos(args...) esc(:(CUDA.cos($(args...)))) end
-
     include(joinpath("shared", "grf2D.jl"))
     include(joinpath("shared", "generate_grf2D.jl"))
 end
