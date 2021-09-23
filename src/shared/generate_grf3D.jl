@@ -4,6 +4,8 @@ using MAT, Plots
                                cov_typ="expon", do_reset=true, do_viz=true, do_save=false)
     # Derived numerics
     dx, dy, dz  = lx/nx, ly/ny, lz/nz  # numerical grid step size
+    me = 0
+    co1, co2, co3 = 0, 0, 0
     # Array allocation
     Yf      = @zeros(nx, ny, nz)
     # Visu init
@@ -14,13 +16,19 @@ using MAT, Plots
 
     if cov_typ=="expon"
         # Generate the 3D exponential covariance function
-        grf3D_expon!(Yf, sf, cl, nh, nx, ny, nz, dx, dy, dz; do_reset)
+        wtime_it = grf3D_expon!(Yf, sf, cl, nh, nx, ny, nz, dx, dy, dz; me, co1, co2, co3, do_reset)
     elseif cov_typ=="gauss"
         # Generate the 3D Gaussian covariance function
-        grf3D_gauss!(Yf, sf, cl[1]/2.0, nh, k_m, nx, ny, nz, dx, dy, dz; do_reset)
+        wtime_it = grf3D_gauss!(Yf, sf, cl[1]/2.0, nh, k_m, nx, ny, nz, dx, dy, dz; me, co1, co2, co3, do_reset)
     else
-        error("Trying to run with undefined covariance function.")
+        error("Undefined covariance function.")
     end
+
+    # Performance
+    A_eff    = 2/1e9*nx*ny*nz*sizeof(Data.Number)  # Effective main memory access per iteration [GB] (Lower bound of required memory access: H and dHdτ have to be read and written (dHdτ for damping): 4 whole-array memaccess; B has to be read: 1 whole-array memaccess)
+    T_eff    = A_eff/wtime_it                      # Effective memory throughput [GB/s]
+    if (me==0) @printf("T_eff = %1.2f GB/s \n", round(T_eff, sigdigits=2)) end
+
     # Visualisation
     if do_viz
         display(heatmap(X, Z, Array(Yf)[:,y_sl,:]', aspect_ratio=1, xlims=(X[1],X[end]), ylims=(Z[1],Z[end]), c=:hot, title="3D RandomField (y-slice)"))

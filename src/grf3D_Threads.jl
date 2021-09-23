@@ -7,8 +7,8 @@ Provides CPU (Threads) functions for 3D Gaussian random fields generation with a
     using ParallelRandomFields.grf3D_Threads
 
 # Functions
-- [`grf3D_expon()!`](@ref)
-- [`grf3D_gauss()!`](@ref)
+- [`grf3D_expon!()`](@ref)
+- [`grf3D_gauss!()`](@ref)
 - [`generate_grf3D()`](@ref)
 
 To see a description of a function type `?<functionname>`.
@@ -19,9 +19,9 @@ module grf3D_Threads
 
     @doc raw"""
 
-        grf3D_expon!(Yf, sf, cl, nh, nx, ny, nz, dx, dy, dz; do_reset=true)
+        grf3D_expon!(Yf, sf, cl, nh, nx, ny, nz, dx, dy, dz; me=0, co1=0, co2=0, co3=0, do_reset=true)
 
-    Compute the Gaussian random field `Yf` with anisotropic exponential covariance function.
+    Compute the Gaussian random field `Yf` with anisotropic exponential covariance function and returns the wall-time `wtime_it`.
 
     # Arguments
     - `Yf::Data.Array`: the Gaussian random field array.
@@ -34,15 +34,19 @@ module grf3D_Threads
     - `dx::Data.Number`: the numerical grid size in `x` dimension.
     - `dy::Data.Number`: the numerical grid size in `y` dimension.
     - `dz::Data.Number`: the numerical grid size in `z` dimension.
+    - `me=0::Int`: the optional kwarg mpi process id.
+    - `co1=0::Int`: the optional kwarg mpi coord x.
+    - `co2=0::Int`: the optional kwarg mpi coord y.
+    - `co3=0::Int`: the optional kwarg mpi coord z.
     - `do_reset=true`: the optional kwarg to reset the random seed.
     """
     grf3D_expon!()
 
     @doc raw"""
 
-        grf3D_gauss!(Yf, sf, cl, nh, k_m, nx, ny, nz, dx, dy, dz; do_reset=true)
+        grf3D_gauss!(Yf, sf, cl, nh, k_m, nx, ny, nz, dx, dy, dz; me=0, co1=0, co2=0, co3=0, do_reset=true)
 
-    Compute the Gaussian random field `Yf` with isotropic Gaussian covariance function.
+    Compute the Gaussian random field `Yf` with isotropic Gaussian covariance function and returns the wall-time `wtime_it`.
 
     # Arguments
     - `Yf::Data.Array`: the Gaussian random field array.
@@ -56,6 +60,10 @@ module grf3D_Threads
     - `dx::Data.Number`: the numerical grid size in `x` dimension.
     - `dy::Data.Number`: the numerical grid size in `y` dimension.
     - `dz::Data.Number`: the numerical grid size in `z` dimension.
+    - `me=0::Int`: the optional kwarg mpi process id.
+    - `co1=0::Int`: the optional kwarg mpi coord x.
+    - `co2=0::Int`: the optional kwarg mpi coord y.
+    - `co3=0::Int`: the optional kwarg mpi coord z.
     - `do_reset=true`: the optional kwarg to reset the random seed.
     """
     grf3D_gauss!()
