@@ -35,13 +35,13 @@ end
         v1   = k*sin(ϕ)*sin(θ)/cl[1]
         v2   = k*cos(ϕ)*sin(θ)/cl[2]
         a, b = randn(), randn()
-        @parallel compute_1!(Yf, v1, v2, a, b, dx, dy, co1, co2)
+        @parallel compute_1!(Yf, v1, v2, a, b, dx, dy, nx, ny, co1, co2)
     end
     @parallel compute_2!(Yf, c)
-    if (me==0) @printf("Total harmonic iters=%d, time=%1.3e sec \n", nh, wtime) end
     # Performance
     wtime    = Base.time() - wtime0
     wtime_it = wtime/(nh-500)                   # Execution time per iteration [s]
+    if (me==0) @printf("Total harmonic iters=%d, time=%1.3e sec \n", nh, wtime) end
     return wtime_it
 end
 
@@ -74,9 +74,9 @@ end
         @parallel compute_1!(Yf, v1, v2, a, b, dx, dy, nx, ny, co1, co2)
     end
     @parallel compute_2!(Yf, c)
-    if (me==0) @printf("Total harmonic iters=%d, time=%1.3e sec \n", nh, wtime) end
     # Performance
     wtime    = Base.time() - wtime0
     wtime_it = wtime/(nh-500)                   # Execution time per iteration [s]
+    if (me==0) @printf("Total harmonic iters=%d, time=%1.3e sec \n", nh, wtime) end
     return wtime_it
 end
