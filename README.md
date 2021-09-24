@@ -126,7 +126,7 @@ mpiexecjl -n 2 -host localhost julia --project runme2D_multixpu.jl
 
 Note: refer to the documentation of your Supercomputing Centre for instructions to run Julia at scale. Instructions for running on the Piz Daint GPU supercomputer at the [Swiss National Supercomputing Centre](https://www.cscs.ch/computers/piz-daint/) can be found [here](https://user.cscs.ch/tools/interactive/julia/) and for running on the octopus GPU supercomputer at the [Swiss Geocomputing Centre](https://wp.unil.ch/geocomputing/octopus/) can be found [here](https://gist.github.com/luraess/45a7a4059d8ace694812e7e301f1a258). (The [`julia_setup_multixpu.sh`](scripts/julia_setup_multixpu.sh) script provides a multi-GPU node config, to then launch the [`runme2D.sh`](scripts/runme2D.sh) script which will call [`submit_julia.sh`](scripts/submit_julia.sh) to launch [`runme2D_multixpu.jl`](scripts/runme2D_multixpu.jl).)
 
-Note also that previous standalone multi-XPU scripts can be found in the [scripts/standalone_scripts/ParallelRandomFields_multixpu](ParallelRandomFields_multixpu) directory.
+Note also that previous standalone multi-XPU scripts can be found in the [ParallelRandomFields_multixpu](scripts/standalone_scripts/ParallelRandomFields_multixpu) directory.
 
 
 ## Dependencies
