@@ -36,4 +36,6 @@ include("grf2D_CUDA.jl")
 ParallelStencil.@reset_parallel_stencil()
 include("grf3D_CUDA.jl")
 
+ParallelStencil.@reset_parallel_stencil()
+
 end # Module ParallelRandomFields
