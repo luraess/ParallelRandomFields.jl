@@ -1,4 +1,6 @@
-const USE_GPU = false
+const USE_GPU = haskey(ENV, "USE_GPU") ? parse(Bool, ENV["USE_GPU"]) : false
+const do_viz  = haskey(ENV, "DO_VIZ")  ? parse(Bool, ENV["DO_VIZ"])  : false
+const do_save = haskey(ENV, "DO_SAVE") ? parse(Bool, ENV["DO_SAVE"]) : false
 using ParallelRandomFields
 using ParallelStencil
 using ParallelStencil.FiniteDifferences2D
@@ -17,8 +19,6 @@ import MPI
 
 @views function generate_grf2D_multixpu()
     cov_typ = "expon"
-    do_viz  = true
-    do_save = false
     # Physics
     lx, ly  = 100.0, 100.0  # domain size
     sf      = 1.0           # standard deviation
@@ -37,7 +37,7 @@ import MPI
     # Array allocation
     Yf      = @zeros(nx, ny)
     # Visu init
-    if do_viz
+    if do_viz || do_save
         nx_v, ny_v = (nx-2)*dims[1], (ny-2)*dims[2]
         if (nx_v*ny_v*sizeof(Data.Number) > 0.8*Sys.free_memory()) error("Not enough memory for visualization.") end
         Yf_v     = zeros(nx_v, ny_v) # global array for visu
@@ -56,14 +56,16 @@ import MPI
         error("Undefined covariance function")
     end
     # Visualisation
-    if do_viz
+    if do_viz || do_save
         Yf_inn .= inn(Yf); gather!(Yf_inn, Yf_v)
-        if (me==0)
+        if do_viz && me==0
             heatmap(Xi_g, Yi_g, Yf_v', aspect_ratio=1, xlims=(Xi_g[1],Xi_g[end]), ylims=(Yi_g[1],Yi_g[end]), c=:hot, title="2D RandomField")
             savefig("grf2D_multixpu_$(nx_v)x$(ny_v).png")
         end
+        if do_save && me==0
+            file = matopen("grf2D_multixpu_$(cov_typ).mat", "w"); write(file, "grf2D", Yf_v); close(file)
+        end
     end
-    if (do_save && me==0) file = matopen("grf2D_multixpu_$(cov_typ).mat", "w"); write(file, "grf2D", Yf_v); close(file)  end
     return
 end
 
