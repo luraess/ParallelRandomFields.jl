@@ -1,7 +1,7 @@
 """
 Module ParallelRandomFields
 
-Enables to sample spatial realisations of 2D and 3D Gaussian random fields with given power spectrum using follwoing covariance functions:
+Enables to sample spatial realisations of 2D and 3D Gaussian random fields with given power spectrum using following covariance functions:
 - anisotropic exponential
 - isotropic Gaussian
 

@@ -48,7 +48,7 @@ search: ParallelRandomFields
 
   Module ParallelRandomFields
 
-  Enables to sample spatial realisations of 2D and 3D Gaussian random fields with given power spectrum using follwoing
+  Enables to sample spatial realisations of 2D and 3D Gaussian random fields with given power spectrum using following
   covariance functions:
 
     •    anisotropic exponential
@@ -96,7 +96,7 @@ julia> generate_grf2D();
 
 - The 3D generator function `generate_grf3D()` calls random field realisation functions `grf3D_expon!()` (exponential covariance) and `grf3D_gauss!()` (Gaussian covariance) on the chosen backend (CPU/GPU).
 
-- The following random field realisation functions can be used within user-specific external code using [ParallelStencil.jl] to generate random fields ([see this example](scripts/runme2D_Threads.jl)):
+- The following random field realisation functions can be used within user-specific external code using [ParallelStencil.jl] to generate random fields:
   - `grf2D_expon!()`
   - `grf2D_gauss!()`
   - `grf3D_expon!()`
@@ -105,11 +105,11 @@ julia> generate_grf2D();
 ---
 
 💡 Besides the module functionalities, the [scripts](scripts/) folder contains:
-- an [`runme2D_Threads.jl`](scripts/runme2D_Threads.jl) code that provides an explicit example of implementing the 2D random field realisation functions (`grf2D_expon!()`, `grf2D_gauss!()`) on the default `Threads` backend;
 
-- the folder [ParallelRandomFields_multixpu](scripts/ParallelRandomFields_multixpu) contains the multi-XPU sub-project **to be incorporated soon to the main module**;
-
-- the folder [standalone_scripts](scripts/standalone_scripts) contains standalone "monolithic" random field generator scripts (originally used prior to creating the ParallelRandomFields module).
+- a [`runme2D_Threads.jl`](scripts/runme2D_Threads.jl) script that provides an example of implementing the 2D random field realisation functions (`grf2D_expon!()`, `grf2D_gauss!()`) on the default `Threads` backend;
+- a [`runme2D_multixpu.jl`](scripts/runme2D_multixpu.jl) script that provides an example of a multi-XPU implementation of the 2D random field realisation functions (`grf2D_expon!()`, `grf2D_gauss!()`) on both the `Threads` and `CUDA` backend;
+- a [ParallelRandomFields_multixpu](scripts/ParallelRandomFields_multixpu) directory about the standalone multi-XPU sub-project;
+- a [standalone_scripts](scripts/standalone_scripts) directory about standalone "monolithic" random field generator scripts (originally used prior to creating the ParallelRandomFields module).
 
 
 ## Supported backends
@@ -119,7 +119,11 @@ ParallelRandomFields builds upon [ParallelStencil.jl] and thus supports the defa
 ## Multi-XPU implementation
 The advantage of the iterative random field generation algorithm is the trivial distributed memory parallelisation. The generation algorithm does not perform any communication among neighbouring cells nor global operations making it highly suitable for an efficient distributed memory parallelisation implementation using [ImplicitGlobalGrid.jl] (relying on [MPI.jl] and [CUDA.jl] for CUDA-aware MPI features).
 
-🚧 The multi-XPU routines are not yet part of the main module but fully operational and accessible [here](scripts/ParallelRandomFields_multixpu) - WIP.
+The [random field realisation functions](#main-functionalities) are multi-XPU ready and can be called in codes relying on ParallelStencil and IMplicitGlobalGrid. See [this example](scripts/runme2D_multixpu.jl) for a 2D multi-XPU implementation. The [`runme2D_multixpu.jl`](scripts/runme2D_multixpu.jl) script can be launched as following upon installing the `mpiexecjl` wrapper from `MPI.jl` ([install infos](https://juliaparallel.github.io/MPI.jl/stable/configuration/#Julia-wrapper-for-mpiexec)):
+
+```sh
+mpiexecjl -n 2 -host localhost julia --project runme2D_multixpu.jl
+```
 
 Note: refer to the documentation of your Supercomputing Centre for instructions to run Julia at scale. Instructions for running on the Piz Daint GPU supercomputer at the [Swiss National Supercomputing Centre](https://www.cscs.ch/computers/piz-daint/) can be found [here](https://user.cscs.ch/tools/interactive/julia/) and for running on the octopus GPU supercomputer at the [Swiss Geocomputing Centre](https://wp.unil.ch/geocomputing/octopus/) can be found [here](https://gist.github.com/luraess/45a7a4059d8ace694812e7e301f1a258).
 
@@ -144,7 +148,6 @@ pkg> add https://github.com/luraess/ParallelRandomFields.jl
 This section lists the current development status of the module.
 
 🚧 **TODOs**
-- Move the multi-XPU "standalone" implementation within the module
 - Enhance documentation
 - Add tests
 
