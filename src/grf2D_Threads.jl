@@ -19,9 +19,9 @@ module grf2D_Threads
 
     @doc raw"""
 
-        grf2D_expon!(Yf, sf, cl, nh, nx, ny, dx, dy; do_reset=true)
+        grf2D_expon!(Yf, sf, cl, nh, nx, ny, dx, dy; me=0, co1=0, co2=0, do_reset=true)
 
-    Compute the Gaussian random field `Yf` with anisotropic exponential covariance function.
+    Compute the Gaussian random field `Yf` with anisotropic exponential covariance function and returns the wall-time `wtime_it`.
 
     # Arguments
     - `Yf::Data.Array`: the Gaussian random field array.
@@ -32,15 +32,18 @@ module grf2D_Threads
     - `ny::Int`: the number of grid points in `y` dimension.
     - `dx::Data.Number`: the numerical grid size in `x` dimension.
     - `dy::Data.Number`: the numerical grid size in `y` dimension.
+    - `me=0::Int`: the optional kwarg mpi process id.
+    - `co1=0::Int`: the optional kwarg mpi coord x.
+    - `co2=0::Int`: the optional kwarg mpi coord y.
     - `do_reset=true`: the optional kwarg to reset the random seed.
     """
     grf2D_expon!()
 
     @doc raw"""
 
-        grf2D_gauss!(Yf, sf, cl, nh, k_m, nx, ny, dx, dy; do_reset=true)
+        grf2D_gauss!(Yf, sf, cl, nh, k_m, nx, ny, dx, dy; me=0, co1=0, co2=0, do_reset=true)
 
-    Compute the Gaussian random field `Yf` with isotropic Gaussian covariance function.
+    Compute the Gaussian random field `Yf` with isotropic Gaussian covariance function and returns the wall-time `wtime_it`.
 
     # Arguments
     - `Yf::Data.Array`: the Gaussian random field array.
@@ -52,6 +55,9 @@ module grf2D_Threads
     - `ny::Int`: the number of grid points in `y` dimension.
     - `dx::Data.Number`: the numerical grid size in `x` dimension.
     - `dy::Data.Number`: the numerical grid size in `y` dimension.
+    - `me=0::Int`: the optional kwarg mpi process id.
+    - `co1=0::Int`: the optional kwarg mpi coord x.
+    - `co2=0::Int`: the optional kwarg mpi coord y.
     - `do_reset=true`: the optional kwarg to reset the random seed.
     """
     grf2D_gauss!()
