@@ -108,8 +108,7 @@ julia> generate_grf2D();
 
 - a [`runme2D_Threads.jl`](scripts/runme2D_Threads.jl) script that provides an example of implementing the 2D random field realisation functions (`grf2D_expon!()`, `grf2D_gauss!()`) on the default `Threads` backend;
 - a [`runme2D_multixpu.jl`](scripts/runme2D_multixpu.jl) script that provides an example of a multi-XPU implementation of the 2D random field realisation functions (`grf2D_expon!()`, `grf2D_gauss!()`) on both the `Threads` and `CUDA` backend;
-- a [ParallelRandomFields_multixpu](scripts/ParallelRandomFields_multixpu) directory about the standalone multi-XPU sub-project;
-- a [standalone_scripts](scripts/standalone_scripts) directory about standalone "monolithic" random field generator scripts (originally used prior to creating the ParallelRandomFields module).
+- a [standalone_scripts](scripts/standalone_scripts) directory about standalone "monolithic" random field generator single and multi-XPU scripts (originally used prior to creating the ParallelRandomFields module).
 
 
 ## Supported backends
@@ -125,7 +124,7 @@ The [random field realisation functions](#main-functionalities) are multi-XPU re
 mpiexecjl -n 2 -host localhost julia --project runme2D_multixpu.jl
 ```
 
-Note: refer to the documentation of your Supercomputing Centre for instructions to run Julia at scale. Instructions for running on the Piz Daint GPU supercomputer at the [Swiss National Supercomputing Centre](https://www.cscs.ch/computers/piz-daint/) can be found [here](https://user.cscs.ch/tools/interactive/julia/) and for running on the octopus GPU supercomputer at the [Swiss Geocomputing Centre](https://wp.unil.ch/geocomputing/octopus/) can be found [here](https://gist.github.com/luraess/45a7a4059d8ace694812e7e301f1a258).
+Note: refer to the documentation of your Supercomputing Centre for instructions to run Julia at scale. Instructions for running on the Piz Daint GPU supercomputer at the [Swiss National Supercomputing Centre](https://www.cscs.ch/computers/piz-daint/) can be found [here](https://user.cscs.ch/tools/interactive/julia/) and for running on the octopus GPU supercomputer at the [Swiss Geocomputing Centre](https://wp.unil.ch/geocomputing/octopus/) can be found [here](https://gist.github.com/luraess/45a7a4059d8ace694812e7e301f1a258). Note also that previous standalone multi-XPU scripts can be found in the [scripts/standalone_scripts/ParallelRandomFields_multixpu](scripts/standalone_scripts/ParallelRandomFields_multixpu) directory.
 
 
 ## Dependencies
