@@ -1,7 +1,7 @@
 name = "ParallelRandomFields"
 uuid = "5519cec6-2252-4828-b89b-d1114f8bfbc2"
 authors = ["Ludovic Räss and contributors"]
-version = "0.1.2"
+version = "0.1.3"
 
 [deps]
 CUDA = "052768ef-5323-5732-b1bb-66c8b64840ba"
